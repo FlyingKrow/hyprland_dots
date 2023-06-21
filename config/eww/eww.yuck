@@ -1,0 +1,115 @@
+(include "cal.yuck")
+(include "infocenter.yuck")
+(defvar eww "/usr/bin/eww")
+
+(defwindow left-bar
+  :stacking "fg"
+  :monitor "1"
+  :geometry (geometry :x "15px"
+                      :y "0%"
+                      :width "40px"
+                      :height "80%"
+                      :anchor "left center")
+  :exclusive true
+  (leftbar))
+
+(defwidget leftbar []
+  (box :class "leftbar"
+       :orientation "v"
+    (top)
+    (bottom)))
+
+
+(defwidget top []
+  (box :class "top"
+       :valign "start"
+       :orientation "v"
+       :spacing 15
+       :space-evenly false
+    (arch)
+    (workspaces)))
+
+(defwidget arch []
+  (box :class "arch"
+    (eventbox :class "arch-event"
+              :onclick "../rofi/bin/launcher &"
+      (box :class "arch-inner"
+        (label :text "󰣇" :class "arch-ico")))))
+
+(defwidget workspaces []
+  (literal :content workspace))
+(deflisten workspace "Workspaces")
+
+(defwidget bottom []
+  (box :class "bottom"
+       :valign "end"
+       :orientation "v"
+       :spacing 15
+       :space-evenly false
+    (infocenter)
+    (volume)
+    (vclock)))
+
+
+(defwidget infocenter []
+  (box :class "infocenter"
+    (eventbox :class "event-infocenter"
+              :onclick "scripts/popup -I"
+      (box :class "infocenter-inner"
+           :orientation "v"
+           :spacing 2
+           :space-evenly false
+        (label :text "" :class "ico-infocenter")))))
+
+
+(defwidget volume []
+  (box :class "volume"
+    (eventbox :class "event-volume"
+              :onhover "${eww} update volum=true"
+              :onhoverlost "${eww} update volum=false"
+      (box :class "volume-inner"
+           :orientation "v"
+           :spacing 2
+           :space-evenly false
+        (revealer :transition "slideup"
+                  :reveal volum
+                  :duration "400ms"
+          (scale :class "volbar"
+                 :value current-vol
+                 :orientation "v"
+                 :flipped true
+                 :max 101
+                 :min 0
+                 :onchange "amixer sset Master {}%" ))
+        (eventbox :onrightclick "/usr/bin/pavucontrol &"
+          (label :text "" :class "ico-vol"))))))
+(defpoll current-vol :interval "200ms"
+  "$HOME/.config/hypr/scripts/get_volume.sh")
+(defvar volum false)
+
+
+(defwidget vclock []
+  (box :class "vclock"
+    (eventbox :class "event-vclock"
+              :timeout "15s"
+              :onclick "scripts/popup -C"
+              :onhover "${eww} update vseconds=true"
+              :onhoverlost "${eww} update vseconds=false"
+      (box :class "vclock-inner"
+           :orientation "v"
+           :spacing 2
+           :space-evenly false
+        (label :text hour :class "hour")
+        (label :text min :class "min")
+        (revealer :transition "slidedown"
+                  :reveal vseconds
+                  :duration "400ms"
+          (box :class "sec-box"
+            (label :text sec :class "sec")))))))
+(defpoll hour :interval "1s"
+  "date '+%H'")
+(defpoll min :interval "1s"
+  "date '+%M'")
+(defpoll sec :interval "1s"
+  "date '+%S'")
+(defvar vseconds false)

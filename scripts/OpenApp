@@ -1,0 +1,34 @@
+#!/usr/bin/bash
+
+browser(){
+  exec $BROWSER &
+}
+
+steam(){
+  exec /usr/bin/steam &
+}
+
+discord(){
+  exec /usr/bin/discord &
+}
+
+fetch(){
+  exec kitty sh -c "neofetch; read" &
+}
+
+notes(){
+  exec /usr/bin/obsidian &
+}
+
+case "$1" in
+  --browser)
+    browser;;
+  --steam)
+    steam;;
+  --discord)
+    discord;;
+  --fetch)
+    fetch;;
+  --notes)
+    notes;;
+esac

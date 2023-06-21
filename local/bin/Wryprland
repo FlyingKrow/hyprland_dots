@@ -1,1 +1,5 @@
-/home/flyingkrow/.local/bin/Wryprland
+#!/usr/bin/sh
+
+export HYPRLAND_LOG_WLR=1
+
+exec dbus-launch --sh-syntax --exit-with-session Hyprland

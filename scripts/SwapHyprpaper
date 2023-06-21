@@ -1,0 +1,30 @@
+#!/usr/bin/sh
+
+next(){
+  current=$(cat ~/.config/hypr/currentpaper)
+  if [[ "${current}" = "6" ]]; then
+    echo 1 > ~/.config/hypr/currentpaper
+    hyprctl hyprpaper wallpaper "HDMI-A-2,~/.extra/hyprpaper/1.jpg"
+  else
+    echo $((current+1)) > ~/.config/hypr/currentpaper
+    hyprctl hyprpaper wallpaper "HDMI-A-2,~/.extra/hyprpaper/$((current+1)).jpg"
+  fi
+}
+
+prev(){
+  current=$(cat ~/.config/hypr/currentpaper)
+  if [[ "${current}" = "1" ]]; then
+    echo 6 > ~/.config/hypr/currentpaper
+    hyprctl hyprpaper wallpaper "HDMI-A-2,~/.extra/hyprpaper/6.jpg"
+  else
+    echo $((current-1)) > ~/.config/hypr/currentpaper
+    hyprctl hyprpaper wallpaper "HDMI-A-2,~/.extra/hyprpaper/$((current-1)).jpg"
+  fi
+}
+
+case "$1" in
+  +)
+    next;;
+  -)
+    prev;;
+esac

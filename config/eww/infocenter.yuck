@@ -1,0 +1,179 @@
+(defwindow dashboard
+  :monitor 1
+  :geometry (geometry :x "15px"
+                      :y "270px"
+                      :width "360px"
+                      :height "560px")
+  (dash))
+
+(defwidget dash []
+  (box :class "dash"
+       :orientation "v"
+       :spacing 10
+       :space-evenly false
+    (header)
+    (date-weather)
+    (musicplayer)
+    (sysinfo)))
+
+
+(defwidget header []
+  (box :class "header"
+       :orientation "h"
+       :spacing 10
+       :space-evenly false
+    (logo)
+    (main)))
+
+
+(defwidget logo []
+  (box :class "logo"
+    (image :path "icons/logo.png"
+           :image-width 110
+           :image-height 110)))
+
+
+(defwidget main []
+  (box :class "main"
+       :orientation "v"
+       :spacing 20
+       :space-evenly false
+    (welcome)
+    (favapps)))
+
+
+(defwidget welcome []
+  (box :class "welcome" "Welcome ${me}"))
+(defpoll me :interval "5h" "whoami")
+
+
+(defwidget favapps []
+  (box :class "favapps"
+       :orientation "h"
+       :spacing 5
+       :space-evenly false
+       :halign "center"
+    (browser)
+    (fetch)
+    (notes)
+    (steam)
+    (discord)))
+
+(defwidget browser []
+  (box :space-evenly false
+    (eventbox :class "favapp-browser"
+              :onclick "OpenApp --browser && scripts/popup -I"
+      (label :text "" :class "browser-ico"))))
+(defwidget fetch []
+  (box :space-evenly false
+    (eventbox :class "favapp-fetch"
+              :onclick "OpenApp --fetch && scripts/popup -I"
+      (label :text "󱗆" :class "fetch-ico"))))
+(defwidget notes []
+  (box :space-evenly false
+    (eventbox :class "favapp-notes"
+              :onclick "OpenApp --notes && scripts/popup -I"
+      (label :text "󰠮" :class "notes-ico"))))
+(defwidget steam []
+  (box :space-evenly false
+    (eventbox :class "favapp"
+              :onclick "OpenApp --steam && scripts/popup -I" 
+      (label :text "" :class "steam-ico"))))
+(defwidget discord []
+  (box :space-evenly false
+    (eventbox :class "favapp"
+              :onclick "OpenApp --discord && scripts/popup -I" 
+      (label  :text "󰙯" :class "discord-ico"))))
+
+
+
+(defwidget date-weather []
+  (box :class "date-weather"
+       :orientation "h"
+    (box :class "date"
+         :orientation "v"
+         :spacing 3
+         :valign "center"
+         :space-evenly false
+      (eventbox :class "date-event" (label :text weekday :class "date-weekday"))
+      (eventbox :class "date-event" (label :text month :class "date-month"))
+      (eventbox :class "date-event" (label :text day :class "date-day")))
+    (box :class "weather"
+         :orientation "v"
+         :spacing 15 
+         :valign "center"
+      (box :class "whex-inner" :style "color: ${weather-hex};" :tooltip "It's ${weather-desc}" 
+        (label :text weather-icon :class "weather-ico"))
+      (box :class "wtemp-inner" :tooltip "Feels like: ${weather-temp-feels}°C"
+        (eventbox :class "wtemp-event"
+          (label :text "${weather-temp}°C" :class "weather-temp"))))))
+(defpoll weekday :interval "30m" "LANG=en_US.UTF-8 date '+%A'")
+(defpoll month :interval "30m" "LANG=en_US.UTF-8 date '+%B'")
+(defpoll day :interval "30m" "date '+%d'")
+(defpoll weather-hex :interval "3h" "Weather hex")
+(defpoll weather-icon :interval "3h" "Weather icon")
+(defpoll weather-desc :interval "3h" "Weather weather_desc")
+(defpoll weather-temp :interval "3h" "Weather current_temp")
+(defpoll weather-temp-feels :interval "3h" "Weather feels_like")
+
+
+
+(defwidget musicplayer [] 
+  (box :orientation "h"
+       :class "musicplayer"
+       :space-evenly false
+	  (box :orientation "v"
+	       :height 100
+	       :class "playerbox"
+	       :hexpand true 
+	       :space-evenly false
+      (box :orientation "h"
+           :class "playertop"
+           :space-evenly false
+           :spacing 15 
+        (box :class "album-art"
+             :style "background-image: url('${art}');")
+        (box :class "playerinfo"
+             :orientation "v"
+             :halign "center"
+             :hexpand true
+          (eventbox :class "info-event"
+		      (label :class "song"
+		             :limit-width 18
+		             :text title))
+		      (eventbox :class "info-event"
+		      (label :class "artist"
+		             :limit-width 18
+		             :text artist))
+	        (box :orientation "h"
+	             :class "playerbot"
+	             :space-evenly false
+	             :valign "center"
+	             :halign "center"
+	             :spacing 30
+            (button :class "btn_prev"
+                    :onclick "MediaControl --previous" "玲")
+		        (button :class "btn_play"
+		                :onclick "MediaControl --toggle" playpause)
+		        (button :class "btn_next"
+		                :onclick "MediaControl --next" "怜")))))))
+(defpoll art :interval "400ms" "MediaControl coverloc")
+(defpoll title :interval "400ms" "MediaControl title")
+(defpoll artist :interval "400ms" "MediaControl artist")
+(defpoll playpause :interval "400ms" "MediaControl statusicon")
+
+
+
+(defwidget sysinfo []
+  (box :orientation "h" :class "sysfullbox" :space-evenly false
+	  (box :orientation "v" :height 120 :class "sysbox" :hexpand true :space-evenly false
+      (box :orientation "v" :class "systop" :space-evenly false :spacing 13
+        (box :class "stats" :hexpand "false" :vexpand "false" :space-evenly "false"
+		      (label :tooltip "${round(EWW_CPU.avg, 0)}%" :class "stats-icon-cpu" :text "󰍛")
+		      (scale :min 0 :max 101 :active false :value {EWW_CPU.avg} :class "scale-cpu" :width 265))
+		    (box :class "stats" :hexpand "false" :vexpand "false" :space-evenly "false"
+		      (label :tooltip "${round(EWW_RAM.used_mem_perc, 0)}%" :class "stats-icon-ram" :text "󰘚")
+		      (scale :min 0 :max 101 :active false :value {EWW_RAM.used_mem_perc} :class "scale-ram" :width 265))
+		    (box :class "stats" :hexpand "false" :vexpand "false" :space-evenly "false"
+		      (label :tooltip "${round(EWW_DISK["/"].used_perc, 0)}%" :class "stats-icon-fs" :text "󰝰")
+		      (scale :min 0 :max 101 :active false :value {(EWW_DISK["/"].used / EWW_DISK["/"].total) * 100} :class "scale-fs" :width 265))))))

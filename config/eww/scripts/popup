@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+infocenter(){
+FILE="$HOME/.cache/eww-fkrow.dashboard"
+
+if [[ ! -f "$FILE" ]]; then
+	touch "$FILE"
+	eww open dashboard
+else
+	eww close dashboard
+	rm "$FILE"
+fi
+}
+
+calendar(){
+LOCK_FILE="$HOME/.cache/eww-fkrow-calendar.lock"
+
+if [[ ! -f "$LOCK_FILE" ]]; then
+    touch "$LOCK_FILE"
+    eww open calendar
+else
+    eww close calendar
+    rm "$LOCK_FILE"
+fi
+}
+
+case "$1" in
+  -I)
+	infocenter;;
+  -C)
+	calendar;;
+esac

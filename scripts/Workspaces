@@ -1,0 +1,88 @@
+#!/usr/bin/sh
+
+activeHex="#fcda92"
+innactiveHex="#bc7b76"
+emptyHex="#695b72"
+
+
+print_workspaces(){
+  current=$(hyprctl activeworkspace -j | jq '.id')
+  workspaces=$(hyprctl workspaces -j | jq ".[].id" | sed '/^ *-99 *$/d')
+  res=""
+  declare -a wsIco
+  declare -a wsCls
+  for wi in $(seq 1 10); do wsIco[$wi]=""; wsCls[$wi]="off"; done
+  for ws in $(IFS='\n'; echo $workspaces); do wsIco[$ws]="󰊠"; wsCls[$ws]="innactive"; done
+  wsIco[$current]="󰮯"
+  wsCls[$current]="active"
+  for w in $(seq 1 10); do
+    res+="(box :class \"workspace\" (eventbox :onclick \"hyprctl dispatch workspace $w\" :class \"workspace-event\" (box :class \"workspace-inner\" (label :class \"workspace-ico ${wsCls[$w]}\" :text \"${wsIco[$w]}\"))))"
+  done
+  echo "(box :class \"workspaces\" (box :class \"workspaces-inner\" :orientation \"v\" :spacing 6 :space-evenly false $res))"
+}
+
+
+print_workspaces
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
+  [[ $line == workspace* ]] && print_workspaces &
+done
+
+
+#
+# visible(){
+#   workspaces=$(hyprctl workspaces -j | jq ".[].id" | sed '/^ *-99 *$/d')
+#   found="0"
+#   for ws in $(IFS='\n'; echo $workspaces); do
+#     if [[ "$ws" = "$1" ]]; then echo "true"; found="1"; fi
+#   done
+#   if [[ "$found" = "0" ]]; then echo "false"; fi
+# }
+#
+# active(){
+#   active=$(hyprctl activeworkspace -j | jq '.id')
+#   if [[ $active = $1 ]]; then
+#     echo "󰮯"
+#   else
+#     echo "󰊠"
+#   fi
+# }
+#
+# hexActive(){
+#   active=$(hyprctl activeworkspace -j | jq '.id')
+#   if [[ $active = $1 ]]; then
+#     echo "#fcda92"
+#   else
+#     echo "#bc7b76"
+#   fi
+# }
+#
+# icon(){
+#   v=$(visible $1)
+#   if [[ "$v" = "false" ]]; then echo ""
+#   else echo $(active $1)
+#   fi
+# }
+#
+# hex(){
+#   v=$(visible $1)
+#   if [[ "$v" = "false" ]]; then echo "#695b72"
+#   else echo $(hexActive $1)
+#   fi
+# }
+#
+# go(){
+#   exec hyprctl dispatch workspace $1 &
+# }
+#
+# case "$1" in
+#   -V)
+#     visible $2;;
+#   -A)
+#     active $2;;
+#   -H)
+#     hex $2;;
+#   -I)
+#     icon $2;;
+#   -G)
+#     go $2;;
+# esac

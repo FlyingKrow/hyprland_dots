@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+hyprctl hyprpaper wallpaper HDMI-A-2,~/.extra/hyprpaper/"$(cat ~/.config/hypr/currentpaper)".jpg

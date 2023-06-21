@@ -1,1 +1,3 @@
-/home/flyingkrow/.local/bin/startranger.sh
+#!/usr/bin/zsh
+
+source ~/.zshrc && ranger

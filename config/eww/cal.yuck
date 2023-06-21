@@ -1,0 +1,22 @@
+(defwindow calendar
+  :monitor 1
+  :geometry (geometry :x "20px"
+                      :y "667px"
+                      :width "270px"
+                      :height "60px")
+  (cal))
+
+(defwidget cal []
+  (box :class "cal-box" 
+		   :orientation "v"
+		(box :class "cal-inner-box"
+		  (calendar :class "cal" 
+			          :day calendar_day 
+			          :month calendar_month 
+			          :year calendar_year))))
+(defpoll calendar_day :interval "1h"
+    "date '+%d'")
+(defpoll calendar_month :interval "1h"
+    "date '+%m'")
+(defpoll calendar_year :interval "1h"
+    "date '+%Y'")

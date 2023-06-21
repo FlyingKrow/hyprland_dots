@@ -1,0 +1,539 @@
+@use "colors" as clr;
+$home-dir: "/home/flyingkrow/";
+
+* {
+  all: unset;
+}
+
+tooltip {
+  background-color: clr.$tooltip;
+  font-family: "Shantell Sans";
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.dash {
+  background: linear-gradient(clr.$dashb-bg3, clr.$dashb-bg2, clr.$dashb-bg1);
+  border: 2px solid clr.$bar-border;
+  border-radius: 12px;
+
+  .header {
+    background-color: clr.$bg;
+    border-bottom: 1px solid clr.$bar-border;
+    border-radius: 10px;
+    margin-top: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 8px;
+
+    .main {
+      .welcome {
+        font-family: Cartograph CF;
+        font-style: italic;
+        font-size: 15px;
+        color: clr.$text;
+        margin-top: 20px;
+        margin-left: 8px;
+      }
+
+      .favapps {
+        font-family: "Material Design Icons Desktop";
+        font-size: 24px;
+        color: clr.$text;
+
+        .favapp-browser {
+          font-size: 20px;
+          transition: 0.2s;
+
+          &:hover {
+            font-size: 25px;
+            color: clr.$text-alt2;
+          }
+
+          .browser-ico {
+            padding-right: 10px;
+          }
+        }
+
+        .favapp-fetch {
+          font-size: 29px;
+          transition: 0.2s;
+
+          &:hover {
+            font-size: 33px;
+            color: clr.$text-alt2;
+          }
+        }
+
+        .favapp-notes {
+          font-size: 26px;
+          transition: 0.2s;
+
+          &:hover {
+            font-size: 31px;
+            color: clr.$text-alt2;
+          }
+
+          .notes-ico {
+            padding-right: 2px;
+          }
+        }
+
+        .favapp {
+          transition: 0.2s;
+
+          &:hover {
+            font-size: 29px;
+            color: clr.$text-alt2;
+          }
+
+          .steam-ico {
+            font-family: "Font Awesome 6 Free Solid";
+            padding-right: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .date-weather {
+    .date {
+      background-color: clr.$bg;
+      border-radius: 10px;
+      border-bottom: 1px solid clr.$bar-border;
+      margin-left: 14px;
+      margin-right: 5px;
+      padding-top: 26px;
+      padding-bottom: 26px;
+      color: clr.$text;
+      font-family: Cartograph CF;
+      font-style: italic;
+      font-size: 20px;
+
+      .date-event {
+        transition: 0.2s;
+
+        &:hover {
+          color: clr.$text-alt2;
+        }
+      }
+      .date-weekday {
+        margin-bottom: -2px;
+      }
+    }
+    .weather {
+      background-color: clr.$bg;
+      border-radius: 10px;
+      border-bottom: 1px solid clr.$bar-border;
+      margin-left: 10px;
+      margin-right: 14px;
+      font-family: "Font Awesome 6 Free Solid";
+      color: clr.$text;
+
+      .whex-inner {
+        padding-top: 22px;
+      }
+      .wtemp-inner {
+        padding-bottom: 24px;
+
+        .wtemp-event {
+          transition: 0.2s;
+
+          &:hover {
+            color: clr.$text-alt2;
+          }
+        }
+      }
+
+      .weather-ico {
+        font-size: 30px;
+      }
+      .weather-temp {
+        font-size: 20px;
+        font-family: Cartograph CF;
+        font-style: italic;
+      }
+    }
+  }
+
+  .playerbox {
+    background-color: clr.$bg;
+    border-radius: 10px;
+    border-bottom: 1px solid clr.$bar-border;
+    padding: 0.9rem;
+    margin-top: 0.7rem;
+    margin-left: 14px;
+    margin-right: 14px;
+
+    .playertop {
+      padding-left: 2px;
+    }
+
+    .album-art {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      padding: 3.2rem;
+    }
+
+    .info-event {
+      transition: 0.2s;
+      font-family: JetBrainsMono Nerd Font;
+      font-weight: bold;
+      color: clr.$text;
+
+      &:hover {
+        color: clr.$text-alt2;
+      }
+    }
+
+    .song {
+      font-style: italic;
+      font-size: 1rem;
+    }
+    .artist {
+      font-size: 0.9rem;
+    }
+
+    .btn_prev,
+    .btn_play,
+    .btn_next {
+      font-family: JetBrainsMono Nerd Font;
+      color: clr.$volbar3;
+      font-size: 20px;
+    }
+
+    .btn_prev {
+      margin-right: -5px;
+    }
+  }
+
+  .sysbox {
+    background-color: clr.$bg;
+    border-radius: 10px;
+    border-bottom: 1px solid clr.$bar-border;
+    padding: 0.9rem;
+    margin-left: 14px;
+    margin-right: 14px;
+
+    .stats {
+      margin-left: 2px;
+    }
+
+    .stats-icon-cpu,
+    .stats-icon-ram,
+    .stats-icon-fs {
+      font-family: Material Design Icons Desktop;
+      font-size: 1.5rem;
+    }
+    .scale-cpu,
+    .scale-ram,
+    .scale-fs,
+    scale trough {
+      all: unset;
+      background-color: clr.$volbar-bg;
+      min-height: 10px;
+      border-radius: 15px;
+      margin-left: 25px;
+    }
+
+    .stats-icon-cpu {
+      color: clr.$cpu2;
+    }
+
+    .stats-icon-ram {
+      color: clr.$ram2;
+    }
+
+    .stats-icon-fs {
+      color: clr.$fs2;
+    }
+
+    .scale-cpu,
+    .scale-ram,
+    .scale-fs,
+    scale trough highlight {
+      all: unset;
+      border-radius: 15px;
+    }
+
+    .scale-cpu trough highlight {
+      background: linear-gradient(to right, clr.$cpu1, clr.$cpu2);
+    }
+
+    .scale-ram trough highlight {
+      background: linear-gradient(to right, clr.$ram1, clr.$ram2);
+    }
+
+    .scale-fs trough highlight {
+      background: linear-gradient(to right, clr.$fs1, clr.$fs2);
+    }
+  }
+}
+
+.left-bar {
+  background-image: url($home-dir + ".extra/eww-bar.jpg");
+  border: 1px solid clr.$bar-border;
+  border-top-style: dotted;
+  border-bottom-style: dotted;
+  border-radius: 12px;
+}
+
+.arch {
+  font-family: "Material Design Icons Desktop";
+  font-size: 24px;
+  color: clr.$arch;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  border-top: 2px solid clr.$bar-border;
+  border-bottom: 2px solid clr.$bar-border;
+
+  .arch-event {
+    background-color: clr.$bg-alt;
+    border-radius: 6px;
+    transition: background-color 0.4s, font-size 0.4s;
+    &:hover {
+      background-color: clr.$bg-active;
+    }
+    .arch-inner {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      margin-top: -5px;
+      margin-bottom: 3px;
+    }
+  }
+}
+
+.workspaces {
+  font-family: "Font Awesome 6 Free Solid";
+  font-size: 16px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: -5px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid clr.$bar-border;
+
+  .workspaces-inner {
+    background-color: clr.$bg-alt;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .workspace {
+      margin-left: 2px;
+      margin-right: 2px;
+      .workspace-event {
+        background-color: clr.$bg;
+        border-radius: 6px;
+        transition: background-color 0.4s;
+
+        &:hover {
+          background-color: clr.$bg-active;
+        }
+
+        .workspace-inner {
+          padding-top: 5px;
+          padding-bottom: 5px;
+
+          .workspace-ico {
+            margin-right: 2px;
+          }
+          .workspace-ico.off {
+            margin-right: 5px;
+            color: clr.$ws-empty;
+          }
+          .workspace-ico.active {
+            color: clr.$ws-active;
+          }
+          .workspace-ico.innactive {
+            color: clr.$ws-innactive;
+          }
+        }
+      }
+    }
+  }
+}
+
+.infocenter {
+  font-family: "Lugatype";
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: -10px;
+  padding-top: 4px;
+  border-top: 2px solid clr.$bar-border;
+
+  .event-infocenter {
+    background-color: clr.$bg;
+    border-radius: 6px;
+    transition: background-color 0.4s;
+    &:hover {
+      background-color: clr.$bg-active;
+    }
+
+    .infocenter-inner {
+      padding-top: 10px;
+      padding-bottom: 12px;
+
+      .ico-infocenter {
+        margin-right: 2px;
+        color: clr.$text;
+      }
+    }
+  }
+}
+
+.volume {
+  font-family: "Lugatype";
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: -5px;
+  padding-top: 4px;
+  border-top: 2px solid clr.$bar-border;
+
+  .event-volume {
+    background-color: clr.$bg;
+    border-radius: 6px;
+    transition: background-color 0.4s;
+    &:hover {
+      background-color: clr.$bg-active;
+    }
+
+    .volume-inner {
+      padding-top: 10px;
+      padding-bottom: 5px;
+
+      .ico-vol {
+        margin-right: 5px;
+        padding-bottom: 4px;
+        color: clr.$text;
+      }
+    }
+  }
+}
+
+.volbar trough highlight {
+  background: linear-gradient(clr.$volbar1, clr.$volbar2, clr.$volbar3);
+  border-radius: 5px;
+}
+
+.volume scale trough {
+  background-color: clr.$volbar-bg;
+  border-radius: 5px;
+  min-height: 80px;
+  min-width: 10px;
+  margin: 0.3rem 0 0.3rem 0.1rem;
+}
+
+.vclock {
+  font-family: "Lugatype";
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid clr.$bar-border;
+
+  .event-vclock {
+    background-color: clr.$bg;
+    border-radius: 6px;
+    transition: background-color 0.4s, font-size 0.4s;
+    &:hover {
+      background-color: clr.$bg-active;
+      font-size: 18px;
+    }
+    .vclock-inner {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      margin-top: -5px;
+      border-top: 2px solid clr.$bar-border;
+
+      .hour {
+        color: clr.$text;
+      }
+      .min {
+        margin-top: -5px;
+        color: clr.$text-alt;
+      }
+      .sec-box {
+        border-top: 2px dashed clr.$bar-border;
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-top: 5px;
+
+        .sec {
+          color: clr.$text-alt2;
+          font-size: 20px;
+          padding-top: 6px;
+          padding-bottom: 2px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cal-box {
+  background-color: clr.$bar-border;
+  border-radius: 5px;
+  font-family: Comic Mono;
+  font-size: 1em;
+  animation: fadeIn 0.5s linear;
+
+  .cal-inner-box {
+    padding: 0.4rem 0.4rem 0.2rem;
+
+    .cal {
+      &.highlight {
+        padding: 10rem;
+      }
+
+      padding: 0.8rem 0.25rem 0rem;
+      margin-left: 10px;
+      background-color: clr.$bg;
+    }
+  }
+}
+
+calendar {
+  font-family: "Lugatype";
+  font-size: 18px;
+  color: clr.$text;
+}
+
+calendar:selected {
+  color: clr.$cal;
+  background-color: clr.$tooltip;
+}
+
+calendar.header {
+  color: clr.$cal-alt;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: clr.$text-alt;
+}
+
+calendar.highlight {
+  color: clr.$cal;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: clr.$text-innactive;
+}

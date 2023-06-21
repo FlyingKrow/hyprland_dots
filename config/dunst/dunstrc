@@ -1,0 +1,19 @@
+[global]
+format = "<b>%a\n%s</b>\n%b"
+monitor=HDMI-A-2
+
+icon_path = "~/.local/share/icons/"
+icon_theme = WhiteSur
+enable_recursive_icon_lookup = true
+
+timeout = 2
+origin = top-center
+offset = 0x20
+frame_width = 2
+frame_color = "#D3D3D3"
+separator_color= frame
+font = "NotoColorEmoji 12"
+font = "Shantell Sans 10"
+corner_radius = 7
+background = "#332D2A"
+foreground = "#e4fcdb"
